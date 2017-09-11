@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="solaceJndiTemplate" class="org.springframework.jndi.JndiTemplate" lazy-init="default" autowire="default">
+		<property name="environment">
+			<map>
+				<entry key="java.naming.provider.url" value="smf://___IP:PORT___" />
+				<entry key="java.naming.factory.initial" value="com.solacesystems.jndi.SolJNDIInitialContextFactory" />
+				<entry key="java.naming.security.principal" value="spring_user@Solace_Spring_VPN" />
+				<entry key="java.naming.security.credentials" value="spring_password" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="solaceConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="default" autowire="default">
+		<property name="jndiTemplate" ref="solaceJndiTemplate" />
+		<property name="jndiName" value="JNDI/CF/spring" />
+	</bean>
+
+	<bean id="solaceCachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory" ref="solaceConnectionFactory" />
+		<property name="sessionCacheSize" value="10" />
+	</bean>
+
+</beans>
