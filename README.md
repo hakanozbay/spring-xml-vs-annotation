@@ -1,1 +1,5 @@
-# spring-xml-vs-annotation
+# Spring: XML vs annotation context configuration
+
+This is an illustration of how the difference betwen XML based and annotation based context configuration in Spring leads to different behaviours, by attempting to setup a connection to a Solace message bus through JNDI lookups. This highlights that XML based conifguration represents true Inversion Of Control characteristics by creating its object graph at runtime, wheras annotation based configuration creates its object graph at compile time, which weakens its Inversion Of Control capabilities and identity.
+
+This codebase does not compile (due to an intentional compilation error) and is not in any form of an executable and functional application. This repository exists to complement the content of my blog post [Spring: XML vs Annotation configuration - why XML is still relevant](https://hakanozbay.github.io/2017/03/30/spring-xml-vs-annotation.html)
